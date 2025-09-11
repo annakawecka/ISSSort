@@ -3418,7 +3418,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l03339" name="l03339"></a><span class="lineno"> 3339</span>            hname = <span class="stringliteral">&quot;pn_1v1_ed_mod&quot;</span> + std::to_string(i) + <span class="stringliteral">&quot;_row&quot;</span> + std::to_string(j);</div>
 <div class="line"><a id="l03340" name="l03340"></a><span class="lineno"> 3340</span>            htitle = <span class="stringliteral">&quot;Energy diff between p and n side, p-side multiplicity = 1 vs. n-side multiplicity = 1 (module &quot;</span>;</div>
 <div class="line"><a id="l03341" name="l03341"></a><span class="lineno"> 3341</span>            htitle += std::to_string(i) + <span class="stringliteral">&quot;, row &quot;</span> + std::to_string(j) + <span class="stringliteral">&quot;);energy difference [keV];counts&quot;</span>;</div>
-<div class="line"><a id="l03342" name="l03342"></a><span class="lineno"> 3342</span>            <a class="code hl_variable" href="classISSEventBuilder.html#a3fd31fb02b73f21fcc8cc09549181388">pn_11_ed</a>[i][j] = <span class="keyword">new</span> TH1F( hname.data(), htitle.data(), 2e3, -2e4, 2e4);</div>
+<div class="line"><a id="l03342" name="l03342"></a><span class="lineno"> 3342</span>            <a class="code hl_variable" href="classISSEventBuilder.html#a3fd31fb02b73f21fcc8cc09549181388">pn_11_ed</a>[i][j] = <span class="keyword">new</span> TH1F( hname.data(), htitle.data(), 2e3, -5e3, 7e3);</div>
 <div class="line"><a id="l03343" name="l03343"></a><span class="lineno"> 3343</span>        }</div>
 <div class="line"><a id="l03344" name="l03344"></a><span class="lineno"> 3344</span> </div>
 <div class="line"><a id="l03345" name="l03345"></a><span class="lineno"> 3345</span>    }</div>
