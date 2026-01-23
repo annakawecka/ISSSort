@@ -587,270 +587,278 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span> </div>
 <div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>                }</div>
 <div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span> </div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>            }</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span> </div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>        }</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span> </div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    }</div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span> </div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span> </div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span> </div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <span class="keywordflow">return</span> walk;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="classISSCalibration.html#a4e258a930893b2a5decd0bb628f1befd">fAsicWalkType</a>[mod][asic] == 3) {</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>                    <span class="keywordflow">if</span> (hit) {</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>                        walk = -<a class="code hl_variable" href="classISSCalibration.html#a69a43651a17124cc7f0e19e1e477731d">walk_params</a>[3];</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>                    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>                        <span class="keywordtype">double</span> x = log10(energy);</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>                        walk = -(<a class="code hl_variable" href="classISSCalibration.html#a69a43651a17124cc7f0e19e1e477731d">walk_params</a>[0]*((x - <a class="code hl_variable" href="classISSCalibration.html#a69a43651a17124cc7f0e19e1e477731d">walk_params</a>[1])*(x - <a class="code hl_variable" href="classISSCalibration.html#a69a43651a17124cc7f0e19e1e477731d">walk_params</a>[1])) + <a class="code hl_variable" href="classISSCalibration.html#a69a43651a17124cc7f0e19e1e477731d">walk_params</a>[2]);</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>                    }</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>                }</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>            }</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span> </div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>}</div>
-</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        }</div>
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span> </div>
-<div class="foldopen" id="foldopen00549" data-start="{" data-end="}">
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno"><a class="line" href="classISSCalibration.html#aa4a4815f7623c2c8dabdc5fb7b2f864f">  549</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="classISSCalibration.html#aa4a4815f7623c2c8dabdc5fb7b2f864f">ISSCalibration::CaenEnergy</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan, <span class="keywordtype">int</span> raw ) {</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span> </div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <span class="keywordtype">float</span> energy, raw_rand;</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    <span class="comment">//std::cout &lt;&lt; &quot;mod=&quot; &lt;&lt; mod &lt;&lt; &quot;; chan=&quot; &lt;&lt; chan &lt;&lt; std::endl;</span></div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span> </div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>        raw_rand = raw + 0.5 - <a class="code hl_variable" href="classISSCalibration.html#a14fd8a3d55ff45d1cb35e2b1fb95e05e">fRand</a>-&gt;Uniform();</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span> </div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        energy = 0;</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>        energy =  <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] * raw_rand * raw_rand;</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] * raw_rand;</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan];</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>        <span class="comment">// Check if we have defaults</span></div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>        <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] ) &lt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] - 1.0 ) &lt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan] ) &lt; 1e-6 )</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span> </div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>            <span class="keywordflow">return</span> raw;</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span> </div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>        <span class="keywordflow">else</span> <span class="keywordflow">return</span> energy;</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span> </div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    }</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span> </div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    }</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span> </div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span> </div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span> </div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    <span class="keywordflow">return</span> walk;</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span> </div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>}</div>
+</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span> </div>
+<div class="foldopen" id="foldopen00557" data-start="{" data-end="}">
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno"><a class="line" href="classISSCalibration.html#aa4a4815f7623c2c8dabdc5fb7b2f864f">  557</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="classISSCalibration.html#aa4a4815f7623c2c8dabdc5fb7b2f864f">ISSCalibration::CaenEnergy</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan, <span class="keywordtype">int</span> raw ) {</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span> </div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    <span class="keywordtype">float</span> energy, raw_rand;</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="comment">//std::cout &lt;&lt; &quot;mod=&quot; &lt;&lt; mod &lt;&lt; &quot;; chan=&quot; &lt;&lt; chan &lt;&lt; std::endl;</span></div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span> </div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span> </div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>        raw_rand = raw + 0.5 - <a class="code hl_variable" href="classISSCalibration.html#a14fd8a3d55ff45d1cb35e2b1fb95e05e">fRand</a>-&gt;Uniform();</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        energy = 0;</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        energy =  <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] * raw_rand * raw_rand;</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] * raw_rand;</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan];</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        <span class="comment">// Check if we have defaults</span></div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>        <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] ) &lt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] - 1.0 ) &lt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan] ) &lt; 1e-6 )</div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span> </div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>}</div>
-</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>            <span class="keywordflow">return</span> raw;</div>
 <div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span> </div>
-<div class="foldopen" id="foldopen00584" data-start="{" data-end="}">
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a80700c1a4fe61132857237b7e67f8203">  584</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classISSCalibration.html#a80700c1a4fe61132857237b7e67f8203">ISSCalibration::CaenThreshold</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ) {</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>        <span class="keywordflow">else</span> <span class="keywordflow">return</span> energy;</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span> </div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    }</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span> </div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span> </div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">fCaenThreshold</a>[mod][chan];</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span> </div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    }</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span> </div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>}</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>}</div>
 </div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span> </div>
+<div class="foldopen" id="foldopen00592" data-start="{" data-end="}">
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a80700c1a4fe61132857237b7e67f8203">  592</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classISSCalibration.html#a80700c1a4fe61132857237b7e67f8203">ISSCalibration::CaenThreshold</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ) {</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span> </div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
 <div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
-<div class="foldopen" id="foldopen00601" data-start="{" data-end="}">
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a4263cc9626c34f09ff3b424375522a3f">  601</a></span><span class="keywordtype">long</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classISSCalibration.html#a4263cc9626c34f09ff3b424375522a3f">ISSCalibration::CaenTime</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">fCaenThreshold</a>[mod][chan];</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    }</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span> </div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span> </div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">fCaenTime</a>[mod][chan];</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span> </div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    }</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span> </div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span> </div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>}</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>}</div>
 </div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span> </div>
+<div class="foldopen" id="foldopen00609" data-start="{" data-end="}">
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a4263cc9626c34f09ff3b424375522a3f">  609</a></span><span class="keywordtype">long</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classISSCalibration.html#a4263cc9626c34f09ff3b424375522a3f">ISSCalibration::CaenTime</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
 <div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span> </div>
-<div class="foldopen" id="foldopen00618" data-start="{" data-end="}">
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno"><a class="line" href="classISSCalibration.html#add460876fbf212fdd11de1037ff06782">  618</a></span>std::string <a class="code hl_function" href="classISSCalibration.html#add460876fbf212fdd11de1037ff06782">ISSCalibration::CaenType</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">fCaenTime</a>[mod][chan];</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span> </div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    }</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span> </div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">fCaenType</a>[mod][chan];</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span> </div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    }</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span> </div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>}</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>}</div>
 </div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span> </div>
+<div class="foldopen" id="foldopen00626" data-start="{" data-end="}">
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno"><a class="line" href="classISSCalibration.html#add460876fbf212fdd11de1037ff06782">  626</a></span>std::string <a class="code hl_function" href="classISSCalibration.html#add460876fbf212fdd11de1037ff06782">ISSCalibration::CaenType</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span> </div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfCAENModules() &amp;&amp;</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>       chan &lt; set-&gt;GetNumberOfCAENChannels() ) {</div>
 <div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
-<div class="foldopen" id="foldopen00639" data-start="{" data-end="}">
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a22cd07a777e94de09ede135e46427ce1">  639</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="classISSCalibration.html#a22cd07a777e94de09ede135e46427ce1">ISSCalibration::MesytecEnergy</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan, <span class="keywordtype">int</span> raw ) {</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>    <span class="keywordtype">float</span> energy, raw_rand;</div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span> </div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    <span class="comment">//std::cout &lt;&lt; &quot;mod=&quot; &lt;&lt; mod &lt;&lt; &quot;; chan=&quot; &lt;&lt; chan &lt;&lt; std::endl;</span></div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span> </div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span> </div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        raw_rand = raw + 0.5 - <a class="code hl_variable" href="classISSCalibration.html#a14fd8a3d55ff45d1cb35e2b1fb95e05e">fRand</a>-&gt;Uniform();</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span> </div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        energy = 0;</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        energy =  <a class="code hl_variable" href="classISSCalibration.html#ae9266c404546904e343fe5a7bedbef94">fMesyGainQuadr</a>[mod][chan] * raw_rand * raw_rand;</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a8d1226c6c65d6ad87cd04bf83559aaa1">fMesyGain</a>[mod][chan] * raw_rand;</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a9eb004e1233bf324d899c8589f15fe61">fMesyOffset</a>[mod][chan];</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span> </div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        <span class="comment">// Check if we have defaults</span></div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#ae9266c404546904e343fe5a7bedbef94">fMesyGainQuadr</a>[mod][chan] ) &lt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a8d1226c6c65d6ad87cd04bf83559aaa1">fMesyGain</a>[mod][chan] - 1.0 ) &lt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a9eb004e1233bf324d899c8589f15fe61">fMesyOffset</a>[mod][chan] ) &lt; 1e-6 )</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>            <span class="keywordflow">return</span> raw;</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        <span class="keywordflow">else</span> <span class="keywordflow">return</span> energy;</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    }</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span> </div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">fCaenType</a>[mod][chan];</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span> </div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    }</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>}</div>
+</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span> </div>
+<div class="foldopen" id="foldopen00647" data-start="{" data-end="}">
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a22cd07a777e94de09ede135e46427ce1">  647</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="classISSCalibration.html#a22cd07a777e94de09ede135e46427ce1">ISSCalibration::MesytecEnergy</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan, <span class="keywordtype">int</span> raw ) {</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span> </div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    <span class="keywordtype">float</span> energy, raw_rand;</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>    <span class="comment">//std::cout &lt;&lt; &quot;mod=&quot; &lt;&lt; mod &lt;&lt; &quot;; chan=&quot; &lt;&lt; chan &lt;&lt; std::endl;</span></div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span> </div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        raw_rand = raw + 0.5 - <a class="code hl_variable" href="classISSCalibration.html#a14fd8a3d55ff45d1cb35e2b1fb95e05e">fRand</a>-&gt;Uniform();</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        energy = 0;</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        energy =  <a class="code hl_variable" href="classISSCalibration.html#ae9266c404546904e343fe5a7bedbef94">fMesyGainQuadr</a>[mod][chan] * raw_rand * raw_rand;</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a8d1226c6c65d6ad87cd04bf83559aaa1">fMesyGain</a>[mod][chan] * raw_rand;</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        energy += <a class="code hl_variable" href="classISSCalibration.html#a9eb004e1233bf324d899c8589f15fe61">fMesyOffset</a>[mod][chan];</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span> </div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>        <span class="comment">// Check if we have defaults</span></div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>        <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#ae9266c404546904e343fe5a7bedbef94">fMesyGainQuadr</a>[mod][chan] ) &lt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a8d1226c6c65d6ad87cd04bf83559aaa1">fMesyGain</a>[mod][chan] - 1.0 ) &lt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>            TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a9eb004e1233bf324d899c8589f15fe61">fMesyOffset</a>[mod][chan] ) &lt; 1e-6 )</div>
 <div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span> </div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>}</div>
-</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>            <span class="keywordflow">return</span> raw;</div>
 <div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span> </div>
-<div class="foldopen" id="foldopen00674" data-start="{" data-end="}">
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno"><a class="line" href="classISSCalibration.html#afc809a4991435ef14f0aaf4e1ba531f6">  674</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classISSCalibration.html#afc809a4991435ef14f0aaf4e1ba531f6">ISSCalibration::MesytecThreshold</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ) {</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        <span class="keywordflow">else</span> <span class="keywordflow">return</span> energy;</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span> </div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>    }</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span> </div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>    <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span> </div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span> </div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#abf954606a5736a4283025c4ebaaac43e">fMesyThreshold</a>[mod][chan];</div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span> </div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    }</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span> </div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>}</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>}</div>
 </div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span> </div>
+<div class="foldopen" id="foldopen00682" data-start="{" data-end="}">
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno"><a class="line" href="classISSCalibration.html#afc809a4991435ef14f0aaf4e1ba531f6">  682</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="classISSCalibration.html#afc809a4991435ef14f0aaf4e1ba531f6">ISSCalibration::MesytecThreshold</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ) {</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span> </div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
 <div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
-<div class="foldopen" id="foldopen00691" data-start="{" data-end="}">
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno"><a class="line" href="classISSCalibration.html#ae8bec3d13d576b9566f9323dccbae642">  691</a></span><span class="keywordtype">long</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classISSCalibration.html#ae8bec3d13d576b9566f9323dccbae642">ISSCalibration::MesytecTime</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#abf954606a5736a4283025c4ebaaac43e">fMesyThreshold</a>[mod][chan];</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span> </div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    }</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span> </div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span> </div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span> </div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#a7cdbfa148e404d74293ac359c57f4908">fMesyTime</a>[mod][chan];</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span> </div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    }</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span> </div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>}</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>}</div>
 </div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span> </div>
+<div class="foldopen" id="foldopen00699" data-start="{" data-end="}">
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno"><a class="line" href="classISSCalibration.html#ae8bec3d13d576b9566f9323dccbae642">  699</a></span><span class="keywordtype">long</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classISSCalibration.html#ae8bec3d13d576b9566f9323dccbae642">ISSCalibration::MesytecTime</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
 <div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span> </div>
-<div class="foldopen" id="foldopen00708" data-start="{" data-end="}">
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a6327a64635a2cdf0ce0e22ac37c7a6a0">  708</a></span>std::string <a class="code hl_function" href="classISSCalibration.html#a6327a64635a2cdf0ce0e22ac37c7a6a0">ISSCalibration::MesytecType</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#a7cdbfa148e404d74293ac359c57f4908">fMesyTime</a>[mod][chan];</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span> </div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>    }</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span> </div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span> </div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#aec45a5f1b23b720f07504f341735aaa9">fMesyType</a>[mod][chan];</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span> </div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    }</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span> </div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span> </div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>}</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>}</div>
 </div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span> </div>
+<div class="foldopen" id="foldopen00716" data-start="{" data-end="}">
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a6327a64635a2cdf0ce0e22ac37c7a6a0">  716</a></span>std::string <a class="code hl_function" href="classISSCalibration.html#a6327a64635a2cdf0ce0e22ac37c7a6a0">ISSCalibration::MesytecType</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan ){</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span> </div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    <span class="keywordflow">if</span>( mod &lt; set-&gt;GetNumberOfMesytecModules() &amp;&amp;</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>       chan &lt; set-&gt;GetNumberOfMesytecChannels() ) {</div>
 <div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span> </div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span> </div>
-<div class="foldopen" id="foldopen00729" data-start="{" data-end="}">
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a32699bf96f42770059626340428d5e9b">  729</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classISSCalibration.html#a32699bf96f42770059626340428d5e9b">ISSCalibration::PrintCalibration</a>( std::ostream &amp;stream, std::string opt ){</div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span> </div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    <span class="comment">// Check options for energy only</span></div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    <span class="keywordtype">bool</span> caen_only = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    <span class="keywordtype">bool</span> asic_only = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="keywordtype">bool</span> energy_only = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    <span class="keywordflow">if</span>( opt.find(<span class="stringliteral">&quot;c&quot;</span>) != std::string::npos || opt.find(<span class="stringliteral">&quot;C&quot;</span>) != std::string::npos ) caen_only = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    <span class="keywordflow">if</span>( opt.find(<span class="stringliteral">&quot;a&quot;</span>) != std::string::npos || opt.find(<span class="stringliteral">&quot;A&quot;</span>) != std::string::npos ) asic_only = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    <span class="keywordflow">if</span>( opt.find(<span class="stringliteral">&quot;e&quot;</span>) != std::string::npos || opt.find(<span class="stringliteral">&quot;E&quot;</span>) != std::string::npos ) energy_only = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classISSCalibration.html#aec45a5f1b23b720f07504f341735aaa9">fMesyType</a>[mod][chan];</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span> </div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    }</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span> </div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>}</div>
+</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span> </div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span> </div>
+<div class="foldopen" id="foldopen00737" data-start="{" data-end="}">
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno"><a class="line" href="classISSCalibration.html#a32699bf96f42770059626340428d5e9b">  737</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classISSCalibration.html#a32699bf96f42770059626340428d5e9b">ISSCalibration::PrintCalibration</a>( std::ostream &amp;stream, std::string opt ){</div>
 <div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span> </div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    <span class="keywordflow">if</span>( !caen_only ) {</div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span> </div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>        <span class="comment">// ASIC print</span></div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>        <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod = 0; mod &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfArrayModules(); mod++ ){</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span> </div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>            <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> asic = 0; asic &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfArrayASICs(); asic++ ){</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span> </div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>                <span class="comment">// Print these unless we request energy only parameters</span></div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>                <span class="keywordflow">if</span>( !energy_only ) {</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    <span class="comment">// Check options for energy only</span></div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    <span class="keywordtype">bool</span> caen_only = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>    <span class="keywordtype">bool</span> asic_only = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    <span class="keywordtype">bool</span> energy_only = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>    <span class="keywordflow">if</span>( opt.find(<span class="stringliteral">&quot;c&quot;</span>) != std::string::npos || opt.find(<span class="stringliteral">&quot;C&quot;</span>) != std::string::npos ) caen_only = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <span class="keywordflow">if</span>( opt.find(<span class="stringliteral">&quot;a&quot;</span>) != std::string::npos || opt.find(<span class="stringliteral">&quot;A&quot;</span>) != std::string::npos ) asic_only = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    <span class="keywordflow">if</span>( opt.find(<span class="stringliteral">&quot;e&quot;</span>) != std::string::npos || opt.find(<span class="stringliteral">&quot;E&quot;</span>) != std::string::npos ) energy_only = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span> </div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>    <span class="keywordflow">if</span>( !caen_only ) {</div>
 <div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span> </div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>                    <span class="comment">// Don&#39;t bother printing if they are just defaults</span></div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>                    <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1d39bf8ff386afbed56ef039c62b1cc4">fAsicTime</a>[mod][asic] ) &gt; 1e-9 ) stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Time: %Lf&quot;</span>, mod, asic, <a class="code hl_variable" href="classISSCalibration.html#a1d39bf8ff386afbed56ef039c62b1cc4">fAsicTime</a>[mod][asic] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>                    <span class="keywordflow">if</span>( !<a class="code hl_variable" href="classISSCalibration.html#a832aecdd70d9698ccecb822eb8b4e2e2">fAsicEnabled</a>[mod][asic] ) stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Enabled: %d&quot;</span>, mod, asic, 0 ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span> </div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>                    <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="Calibration_8hh.html#a2d6dfecef79c2ca723da6a05cc5d11b5">nwalkpars</a>; i++ ) {</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span> </div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>                        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">fAsicWalkHit0</a>[mod][asic][i] &gt; 1e-9 || <a class="code hl_variable" href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">fAsicWalkHit0</a>[mod][asic][i] &lt; 1e-9 )</div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>                            stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Walk%d.Hit0: %f&quot;</span>, mod, asic, i, <a class="code hl_variable" href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">fAsicWalkHit0</a>[mod][asic][i] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#a8e8121d049907a70d06ab247e3aa6b59">fAsicWalkHit1</a>[mod][asic][i] &gt; 1e-9 || <a class="code hl_variable" href="classISSCalibration.html#a8e8121d049907a70d06ab247e3aa6b59">fAsicWalkHit1</a>[mod][asic][i] &lt; 1e-9 )</div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>                            stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Walk%d.Hit1: %f&quot;</span>, mod, asic, i, <a class="code hl_variable" href="classISSCalibration.html#a8e8121d049907a70d06ab247e3aa6b59">fAsicWalkHit1</a>[mod][asic][i] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        <span class="comment">// ASIC print</span></div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod = 0; mod &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfArrayModules(); mod++ ){</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>            <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> asic = 0; asic &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfArrayASICs(); asic++ ){</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span> </div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>                <span class="comment">// Print these unless we request energy only parameters</span></div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>                <span class="keywordflow">if</span>( !energy_only ) {</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span> </div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>                    <span class="comment">// Don&#39;t bother printing if they are just defaults</span></div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                    <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1d39bf8ff386afbed56ef039c62b1cc4">fAsicTime</a>[mod][asic] ) &gt; 1e-9 ) stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Time: %Lf&quot;</span>, mod, asic, <a class="code hl_variable" href="classISSCalibration.html#a1d39bf8ff386afbed56ef039c62b1cc4">fAsicTime</a>[mod][asic] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>                    <span class="keywordflow">if</span>( !<a class="code hl_variable" href="classISSCalibration.html#a832aecdd70d9698ccecb822eb8b4e2e2">fAsicEnabled</a>[mod][asic] ) stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Enabled: %d&quot;</span>, mod, asic, 0 ) &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span> </div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>                    }</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>                    <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="Calibration_8hh.html#a2d6dfecef79c2ca723da6a05cc5d11b5">nwalkpars</a>; i++ ) {</div>
 <div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span> </div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>                }</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span> </div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>                <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan = 0; chan &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfArrayChannels(); chan++ ){</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span> </div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>                    <span class="comment">// Don&#39;t bother printing if they are just defaults</span></div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>                    <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a676b9c1d95ff9fea7e3c7a69d2ad0617">fAsicGainQuadr</a>[mod][asic][chan] - <a class="code hl_variable" href="classISSCalibration.html#a6efafc1c944e08c7854f305a2660ac6f">fAsicOffsetDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>                        TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a91be818c752ab8972b860e3c84ff9621">fAsicGain</a>[mod][asic][chan] - <a class="code hl_variable" href="classISSCalibration.html#ae9c2c8bd9d65741e781b426248fc413b">fAsicGainDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>                        TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#aca62f5c6f4cb45923723fd841cc0f837">fAsicOffset</a>[mod][asic][chan] - <a class="code hl_variable" href="classISSCalibration.html#ab782cc7fe28f17a5338395e09e54bbe3">fAsicGainQuadrDefault</a> ) &gt; 1e-6 ) {</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.Offset: %f&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#aca62f5c6f4cb45923723fd841cc0f837">fAsicOffset</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.Gain: %f&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#a91be818c752ab8972b860e3c84ff9621">fAsicGain</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.GainQuadr: %f&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#a676b9c1d95ff9fea7e3c7a69d2ad0617">fAsicGainQuadr</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span> </div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>                    } <span class="comment">// defaults</span></div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span> </div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                    <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#ae544429937bb5f5fc736d490488245f8">fAsicThreshold</a>[mod][asic][chan] != 0 )</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.Threshold: %u&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#ae544429937bb5f5fc736d490488245f8">fAsicThreshold</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span> </div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>                } <span class="comment">// chan</span></div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span> </div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>            } <span class="comment">// asic</span></div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span> </div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        } <span class="comment">// mod</span></div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span> </div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>    } <span class="comment">// !caen_only</span></div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>                        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">fAsicWalkHit0</a>[mod][asic][i] &gt; 1e-9 || <a class="code hl_variable" href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">fAsicWalkHit0</a>[mod][asic][i] &lt; 1e-9 )</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>                            stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Walk%d.Hit0: %f&quot;</span>, mod, asic, i, <a class="code hl_variable" href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">fAsicWalkHit0</a>[mod][asic][i] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span> </div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>                        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#a8e8121d049907a70d06ab247e3aa6b59">fAsicWalkHit1</a>[mod][asic][i] &gt; 1e-9 || <a class="code hl_variable" href="classISSCalibration.html#a8e8121d049907a70d06ab247e3aa6b59">fAsicWalkHit1</a>[mod][asic][i] &lt; 1e-9 )</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>                            stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d.Walk%d.Hit1: %f&quot;</span>, mod, asic, i, <a class="code hl_variable" href="classISSCalibration.html#a8e8121d049907a70d06ab247e3aa6b59">fAsicWalkHit1</a>[mod][asic][i] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span> </div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>                    }</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span> </div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>                }</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span> </div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>                <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan = 0; chan &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfArrayChannels(); chan++ ){</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span> </div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>                    <span class="comment">// Don&#39;t bother printing if they are just defaults</span></div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>                    <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a676b9c1d95ff9fea7e3c7a69d2ad0617">fAsicGainQuadr</a>[mod][asic][chan] - <a class="code hl_variable" href="classISSCalibration.html#a6efafc1c944e08c7854f305a2660ac6f">fAsicOffsetDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>                        TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a91be818c752ab8972b860e3c84ff9621">fAsicGain</a>[mod][asic][chan] - <a class="code hl_variable" href="classISSCalibration.html#ae9c2c8bd9d65741e781b426248fc413b">fAsicGainDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                        TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#aca62f5c6f4cb45923723fd841cc0f837">fAsicOffset</a>[mod][asic][chan] - <a class="code hl_variable" href="classISSCalibration.html#ab782cc7fe28f17a5338395e09e54bbe3">fAsicGainQuadrDefault</a> ) &gt; 1e-6 ) {</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span> </div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.Offset: %f&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#aca62f5c6f4cb45923723fd841cc0f837">fAsicOffset</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.Gain: %f&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#a91be818c752ab8972b860e3c84ff9621">fAsicGain</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.GainQuadr: %f&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#a676b9c1d95ff9fea7e3c7a69d2ad0617">fAsicGainQuadr</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span> </div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>                    } <span class="comment">// defaults</span></div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span> </div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>                    <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#ae544429937bb5f5fc736d490488245f8">fAsicThreshold</a>[mod][asic][chan] != 0 )</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>                        stream &lt;&lt; Form( <span class="stringliteral">&quot;asic_%d_%d_%d.Threshold: %u&quot;</span>, mod, asic, chan, <a class="code hl_variable" href="classISSCalibration.html#ae544429937bb5f5fc736d490488245f8">fAsicThreshold</a>[mod][asic][chan] ) &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span> </div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>    <span class="keywordflow">if</span>( !asic_only ) {</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>                } <span class="comment">// chan</span></div>
 <div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span> </div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>        <span class="comment">// CAEN print</span></div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>        <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod = 0; mod &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfCAENModules(); mod++ ){</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span> </div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>            <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan = 0; chan &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfCAENChannels(); chan++ ){</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span> </div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>                <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] - <a class="code hl_variable" href="classISSCalibration.html#aa103141df5f48eea8ad988635b717503">fCaenOffsetDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>                    TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] - <a class="code hl_variable" href="classISSCalibration.html#a2df532a9bc13c1034525d9fcff524882">fCaenGainDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>                    TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan] - <a class="code hl_variable" href="classISSCalibration.html#af50f7797cac35d8dc122f8d0f5a53a92">fCaenGainQuadrDefault</a> ) &gt; 1e-6 ) {</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span> </div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Offset: %f&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Gain: %f&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.GainQuadr: %f&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>            } <span class="comment">// asic</span></div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span> </div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>        } <span class="comment">// mod</span></div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span> </div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    } <span class="comment">// !caen_only</span></div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span> </div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>    <span class="keywordflow">if</span>( !asic_only ) {</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span> </div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        <span class="comment">// CAEN print</span></div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>        <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mod = 0; mod &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfCAENModules(); mod++ ){</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span> </div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>            <span class="keywordflow">for</span>( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> chan = 0; chan &lt; <a class="code hl_variable" href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">set</a>-&gt;GetNumberOfCAENChannels(); chan++ ){</div>
 <div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span> </div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>                }</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span> </div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>                <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">fCaenThreshold</a>[mod][chan] != 0 )</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Threshold: %u&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">fCaenThreshold</a>[mod][chan] ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span> </div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>                <span class="keywordflow">if</span>( !energy_only &amp;&amp; TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">fCaenTime</a>[mod][chan] ) &gt; 1e-9 )</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Time: %Lf&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">fCaenTime</a>[mod][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>                <span class="keywordflow">if</span>( TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] - <a class="code hl_variable" href="classISSCalibration.html#aa103141df5f48eea8ad988635b717503">fCaenOffsetDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>                    TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] - <a class="code hl_variable" href="classISSCalibration.html#a2df532a9bc13c1034525d9fcff524882">fCaenGainDefault</a> ) &gt; 1e-6 &amp;&amp;</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>                    TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan] - <a class="code hl_variable" href="classISSCalibration.html#af50f7797cac35d8dc122f8d0f5a53a92">fCaenGainQuadrDefault</a> ) &gt; 1e-6 ) {</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span> </div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Offset: %f&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">fCaenOffset</a>[mod][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Gain: %f&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">fCaenGain</a>[mod][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.GainQuadr: %f&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a1066c9204f20e80bdbf9ae381bb06ca1">fCaenGainQuadr</a>[mod][chan] ) &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span> </div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>                <span class="keywordflow">if</span>( !energy_only &amp;&amp; <a class="code hl_variable" href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">fCaenType</a>[mod][chan] != 0 )</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Type: %s&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">fCaenType</a>[mod][chan].data() ) &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span> </div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>            } <span class="comment">// chan</span></div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>                }</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span> </div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>                <span class="keywordflow">if</span>( <a class="code hl_variable" href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">fCaenThreshold</a>[mod][chan] != 0 )</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Threshold: %u&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">fCaenThreshold</a>[mod][chan] ) &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>        } <span class="comment">// mod</span></div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span> </div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    } <span class="comment">// !asic_only</span></div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span> </div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>};</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>                <span class="keywordflow">if</span>( !energy_only &amp;&amp; TMath::Abs( <a class="code hl_variable" href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">fCaenTime</a>[mod][chan] ) &gt; 1e-9 )</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Time: %Lf&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">fCaenTime</a>[mod][chan] ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span> </div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>                <span class="keywordflow">if</span>( !energy_only &amp;&amp; <a class="code hl_variable" href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">fCaenType</a>[mod][chan] != 0 )</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>                    stream &lt;&lt; Form( <span class="stringliteral">&quot;caen_%d_%d.Type: %s&quot;</span>, mod, chan, <a class="code hl_variable" href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">fCaenType</a>[mod][chan].data() ) &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span> </div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>            } <span class="comment">// chan</span></div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span> </div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>        } <span class="comment">// mod</span></div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span> </div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    } <span class="comment">// !asic_only</span></div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span> </div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>};</div>
 </div>
 <div class="ttc" id="aCalibration_8cc_html_a7b7b0b6f5dab15f5108e8999b0e659cb"><div class="ttname"><a href="Calibration_8cc.html#a7b7b0b6f5dab15f5108e8999b0e659cb">walk_derivative</a></div><div class="ttdeci">double walk_derivative(double *x, double *params)</div><div class="ttdef"><b>Definition</b> <a href="#l00037">Calibration.cc:37</a></div></div>
 <div class="ttc" id="aCalibration_8cc_html_a9fb106a6491ac92c3b35ee9c5c20d686"><div class="ttname"><a href="Calibration_8cc.html#a9fb106a6491ac92c3b35ee9c5c20d686">walk_function</a></div><div class="ttdeci">double walk_function(double *x, double *params)</div><div class="ttdef"><b>Definition</b> <a href="#l00011">Calibration.cc:11</a></div></div>
@@ -866,20 +874,20 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassISSCalibration_html_a1a9bc1232a654d606a5213f38da22336"><div class="ttname"><a href="classISSCalibration.html#a1a9bc1232a654d606a5213f38da22336">ISSCalibration::fCaenOffset</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; float &gt; &gt; fCaenOffset</div><div class="ttdoc">Constant in CAEN energy calculation.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00320">Calibration.hh:320</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a1b4e7a0cbe22b3093082f477f886a5fe"><div class="ttname"><a href="classISSCalibration.html#a1b4e7a0cbe22b3093082f477f886a5fe">ISSCalibration::fInputFile</a></div><div class="ttdeci">std::string fInputFile</div><div class="ttdoc">The location of the calibration input file.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00303">Calibration.hh:303</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a1d39bf8ff386afbed56ef039c62b1cc4"><div class="ttname"><a href="classISSCalibration.html#a1d39bf8ff386afbed56ef039c62b1cc4">ISSCalibration::fAsicTime</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; long double &gt; &gt; fAsicTime</div><div class="ttdoc">Time offset for signals on a given ASIC.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00314">Calibration.hh:314</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_a22cd07a777e94de09ede135e46427ce1"><div class="ttname"><a href="classISSCalibration.html#a22cd07a777e94de09ede135e46427ce1">ISSCalibration::MesytecEnergy</a></div><div class="ttdeci">float MesytecEnergy(unsigned int mod, unsigned int chan, int raw)</div><div class="ttdef"><b>Definition</b> <a href="#l00639">Calibration.cc:639</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_a22cd07a777e94de09ede135e46427ce1"><div class="ttname"><a href="classISSCalibration.html#a22cd07a777e94de09ede135e46427ce1">ISSCalibration::MesytecEnergy</a></div><div class="ttdeci">float MesytecEnergy(unsigned int mod, unsigned int chan, int raw)</div><div class="ttdef"><b>Definition</b> <a href="#l00647">Calibration.cc:647</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a2cc001788cdffa62d15dc0ecad528e23"><div class="ttname"><a href="classISSCalibration.html#a2cc001788cdffa62d15dc0ecad528e23">ISSCalibration::tw_graph</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::vector&lt; std::shared_ptr&lt; TGraph &gt; &gt; &gt; &gt; tw_graph</div><div class="ttdoc">! Vector containing time walk graphs</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00353">Calibration.hh:353</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a2df532a9bc13c1034525d9fcff524882"><div class="ttname"><a href="classISSCalibration.html#a2df532a9bc13c1034525d9fcff524882">ISSCalibration::fCaenGainDefault</a></div><div class="ttdeci">float fCaenGainDefault</div><div class="ttdoc">! The default linear term in CAEN energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00338">Calibration.hh:338</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a31877f978ee6ffcf7a9167087056fd83"><div class="ttname"><a href="classISSCalibration.html#a31877f978ee6ffcf7a9167087056fd83">ISSCalibration::fAsicWalkHit0</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; fAsicWalkHit0</div><div class="ttdoc">Time-walk parameters for the ASICs for hit bit 0 events.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00316">Calibration.hh:316</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_a32699bf96f42770059626340428d5e9b"><div class="ttname"><a href="classISSCalibration.html#a32699bf96f42770059626340428d5e9b">ISSCalibration::PrintCalibration</a></div><div class="ttdeci">void PrintCalibration(std::ostream &amp;stream, std::string opt)</div><div class="ttdef"><b>Definition</b> <a href="#l00729">Calibration.cc:729</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_a32699bf96f42770059626340428d5e9b"><div class="ttname"><a href="classISSCalibration.html#a32699bf96f42770059626340428d5e9b">ISSCalibration::PrintCalibration</a></div><div class="ttdeci">void PrintCalibration(std::ostream &amp;stream, std::string opt)</div><div class="ttdef"><b>Definition</b> <a href="#l00737">Calibration.cc:737</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a3807d20b6fd3da1c9b0371d1766378a3"><div class="ttname"><a href="classISSCalibration.html#a3807d20b6fd3da1c9b0371d1766378a3">ISSCalibration::fCaenTime</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; long double &gt; &gt; fCaenTime</div><div class="ttdoc">Time offset for signals on a given detector in the CAEN DAQ.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00324">Calibration.hh:324</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a3cf926ad1dac536248056b2b6ab8bbfb"><div class="ttname"><a href="classISSCalibration.html#a3cf926ad1dac536248056b2b6ab8bbfb">ISSCalibration::fMesyOffsetDefault</a></div><div class="ttdeci">float fMesyOffsetDefault</div><div class="ttdoc">! The default constant in Mesytec energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00340">Calibration.hh:340</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a40976ebd8d1764d2e05d3e89056bbf30"><div class="ttname"><a href="classISSCalibration.html#a40976ebd8d1764d2e05d3e89056bbf30">ISSCalibration::fa</a></div><div class="ttdeci">TF1 * fa</div><div class="ttdoc">! TF1 for the time walk function: walk_function( double *x, double *params )</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00346">Calibration.hh:346</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_a4263cc9626c34f09ff3b424375522a3f"><div class="ttname"><a href="classISSCalibration.html#a4263cc9626c34f09ff3b424375522a3f">ISSCalibration::CaenTime</a></div><div class="ttdeci">long double CaenTime(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00601">Calibration.cc:601</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_a4263cc9626c34f09ff3b424375522a3f"><div class="ttname"><a href="classISSCalibration.html#a4263cc9626c34f09ff3b424375522a3f">ISSCalibration::CaenTime</a></div><div class="ttdeci">long double CaenTime(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00609">Calibration.cc:609</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a47dd5574a612f107ba3d5577cb41a7ec"><div class="ttname"><a href="classISSCalibration.html#a47dd5574a612f107ba3d5577cb41a7ec">ISSCalibration::fCaenGain</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; float &gt; &gt; fCaenGain</div><div class="ttdoc">Linear term in CAEN energy calculation.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00321">Calibration.hh:321</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a49ae5c11f1c5dc8d777640273fd98192"><div class="ttname"><a href="classISSCalibration.html#a49ae5c11f1c5dc8d777640273fd98192">ISSCalibration::set</a></div><div class="ttdeci">std::shared_ptr&lt; ISSSettings &gt; set</div><div class="ttdoc">! Pointer to the ISSSettings object (not stored in ROOT file, need the ! for this)</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00305">Calibration.hh:305</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a4e258a930893b2a5decd0bb628f1befd"><div class="ttname"><a href="classISSCalibration.html#a4e258a930893b2a5decd0bb628f1befd">ISSCalibration::fAsicWalkType</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; unsigned char &gt; &gt; fAsicWalkType</div><div class="ttdoc">Type of time-walk parameters for the ASICs, with 0: Annie Dolan's poly + exp function and 1: Sam Reev...</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00318">Calibration.hh:318</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a5d76306a9008bb192c00a51243ce03a7"><div class="ttname"><a href="classISSCalibration.html#a5d76306a9008bb192c00a51243ce03a7">ISSCalibration::fCaenThreshold</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; unsigned int &gt; &gt; fCaenThreshold</div><div class="ttdoc">Threshold for raw signals from detectors in the CAEN DAQ.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00323">Calibration.hh:323</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_a6327a64635a2cdf0ce0e22ac37c7a6a0"><div class="ttname"><a href="classISSCalibration.html#a6327a64635a2cdf0ce0e22ac37c7a6a0">ISSCalibration::MesytecType</a></div><div class="ttdeci">std::string MesytecType(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00708">Calibration.cc:708</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_a6327a64635a2cdf0ce0e22ac37c7a6a0"><div class="ttname"><a href="classISSCalibration.html#a6327a64635a2cdf0ce0e22ac37c7a6a0">ISSCalibration::MesytecType</a></div><div class="ttdeci">std::string MesytecType(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00716">Calibration.cc:716</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a676b9c1d95ff9fea7e3c7a69d2ad0617"><div class="ttname"><a href="classISSCalibration.html#a676b9c1d95ff9fea7e3c7a69d2ad0617">ISSCalibration::fAsicGainQuadr</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt; fAsicGainQuadr</div><div class="ttdoc">Quadratic term in ASIC energy calibration.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00312">Calibration.hh:312</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a69a43651a17124cc7f0e19e1e477731d"><div class="ttname"><a href="classISSCalibration.html#a69a43651a17124cc7f0e19e1e477731d">ISSCalibration::walk_params</a></div><div class="ttdeci">double walk_params[nwalkpars+1]</div><div class="ttdoc">Parameters used to store time-walk parameters.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00348">Calibration.hh:348</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a6b80d6f860dcd8475fff3334b1348ddf"><div class="ttname"><a href="classISSCalibration.html#a6b80d6f860dcd8475fff3334b1348ddf">ISSCalibration::Initialise</a></div><div class="ttdeci">void Initialise()</div><div class="ttdef"><b>Definition</b> <a href="#l00113">Calibration.cc:113</a></div></div>
@@ -888,7 +896,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassISSCalibration_html_a70d4fabffebc424aa227182e0dc2046c"><div class="ttname"><a href="classISSCalibration.html#a70d4fabffebc424aa227182e0dc2046c">ISSCalibration::twgraphname</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::vector&lt; std::string &gt; &gt; &gt; twgraphname</div><div class="ttdoc">The names of the time walk graphs.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00352">Calibration.hh:352</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a7938f1326dbb5e6ff6c5bd2e14e9724d"><div class="ttname"><a href="classISSCalibration.html#a7938f1326dbb5e6ff6c5bd2e14e9724d">ISSCalibration::AsicEnergy</a></div><div class="ttdeci">float AsicEnergy(unsigned int mod, unsigned int asic, unsigned int chan, unsigned short raw)</div><div class="ttdef"><b>Definition</b> <a href="#l00344">Calibration.cc:344</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a7cdbfa148e404d74293ac359c57f4908"><div class="ttname"><a href="classISSCalibration.html#a7cdbfa148e404d74293ac359c57f4908">ISSCalibration::fMesyTime</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; long double &gt; &gt; fMesyTime</div><div class="ttdoc">Time offset for signals on a given detector in the Mesytec DAQ.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00331">Calibration.hh:331</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_a80700c1a4fe61132857237b7e67f8203"><div class="ttname"><a href="classISSCalibration.html#a80700c1a4fe61132857237b7e67f8203">ISSCalibration::CaenThreshold</a></div><div class="ttdeci">unsigned int CaenThreshold(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00584">Calibration.cc:584</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_a80700c1a4fe61132857237b7e67f8203"><div class="ttname"><a href="classISSCalibration.html#a80700c1a4fe61132857237b7e67f8203">ISSCalibration::CaenThreshold</a></div><div class="ttdeci">unsigned int CaenThreshold(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00592">Calibration.cc:592</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a832aecdd70d9698ccecb822eb8b4e2e2"><div class="ttname"><a href="classISSCalibration.html#a832aecdd70d9698ccecb822eb8b4e2e2">ISSCalibration::fAsicEnabled</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; bool &gt; &gt; fAsicEnabled</div><div class="ttdoc">Boolean determining if ASIC is enabled or not.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00315">Calibration.hh:315</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a83ad03457ba65a6e04c03d746d88c0ea"><div class="ttname"><a href="classISSCalibration.html#a83ad03457ba65a6e04c03d746d88c0ea">ISSCalibration::AsicTime</a></div><div class="ttdeci">long double AsicTime(unsigned int mod, unsigned int asic)</div><div class="ttdef"><b>Definition</b> <a href="#l00396">Calibration.cc:396</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a8ce968746e5a721b50a64a9dc0ecc023"><div class="ttname"><a href="classISSCalibration.html#a8ce968746e5a721b50a64a9dc0ecc023">ISSCalibration::fMesyGainQuadrDefault</a></div><div class="ttdeci">float fMesyGainQuadrDefault</div><div class="ttdoc">! The default quadratic term in Mesytec energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00342">Calibration.hh:342</a></div></div>
@@ -899,7 +907,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassISSCalibration_html_a9eb004e1233bf324d899c8589f15fe61"><div class="ttname"><a href="classISSCalibration.html#a9eb004e1233bf324d899c8589f15fe61">ISSCalibration::fMesyOffset</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; float &gt; &gt; fMesyOffset</div><div class="ttdoc">Constant in Mesytec energy calculation.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00327">Calibration.hh:327</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_a9f60efcb83a47403755208555fe0c2db"><div class="ttname"><a href="classISSCalibration.html#a9f60efcb83a47403755208555fe0c2db">ISSCalibration::AsicThreshold</a></div><div class="ttdeci">unsigned int AsicThreshold(unsigned int mod, unsigned int asic, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00378">Calibration.cc:378</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_aa103141df5f48eea8ad988635b717503"><div class="ttname"><a href="classISSCalibration.html#aa103141df5f48eea8ad988635b717503">ISSCalibration::fCaenOffsetDefault</a></div><div class="ttdeci">float fCaenOffsetDefault</div><div class="ttdoc">! The default constant in CAEN energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00337">Calibration.hh:337</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_aa4a4815f7623c2c8dabdc5fb7b2f864f"><div class="ttname"><a href="classISSCalibration.html#aa4a4815f7623c2c8dabdc5fb7b2f864f">ISSCalibration::CaenEnergy</a></div><div class="ttdeci">float CaenEnergy(unsigned int mod, unsigned int chan, int raw)</div><div class="ttdef"><b>Definition</b> <a href="#l00549">Calibration.cc:549</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_aa4a4815f7623c2c8dabdc5fb7b2f864f"><div class="ttname"><a href="classISSCalibration.html#aa4a4815f7623c2c8dabdc5fb7b2f864f">ISSCalibration::CaenEnergy</a></div><div class="ttdeci">float CaenEnergy(unsigned int mod, unsigned int chan, int raw)</div><div class="ttdef"><b>Definition</b> <a href="#l00557">Calibration.cc:557</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_aa98073f95f67cc4e3b186943958b1c14"><div class="ttname"><a href="classISSCalibration.html#aa98073f95f67cc4e3b186943958b1c14">ISSCalibration::AsicEnabled</a></div><div class="ttdeci">bool AsicEnabled(unsigned int mod, unsigned int asic)</div><div class="ttdef"><b>Definition</b> <a href="#l00413">Calibration.cc:413</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_aab1c73c8186c923f02c3758139b528f5"><div class="ttname"><a href="classISSCalibration.html#aab1c73c8186c923f02c3758139b528f5">ISSCalibration::AsicWalk</a></div><div class="ttdeci">float AsicWalk(unsigned int mod, unsigned int asic, float energy, bool hit)</div><div class="ttdef"><b>Definition</b> <a href="#l00433">Calibration.cc:433</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_ab782cc7fe28f17a5338395e09e54bbe3"><div class="ttname"><a href="classISSCalibration.html#ab782cc7fe28f17a5338395e09e54bbe3">ISSCalibration::fAsicGainQuadrDefault</a></div><div class="ttdeci">float fAsicGainQuadrDefault</div><div class="ttdoc">! The default quadratic term in ASIC energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00336">Calibration.hh:336</a></div></div>
@@ -907,9 +915,9 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassISSCalibration_html_abf954606a5736a4283025c4ebaaac43e"><div class="ttname"><a href="classISSCalibration.html#abf954606a5736a4283025c4ebaaac43e">ISSCalibration::fMesyThreshold</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; unsigned int &gt; &gt; fMesyThreshold</div><div class="ttdoc">Threshold for raw signals from detectors in the Mesytec DAQ.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00330">Calibration.hh:330</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_ac2ee880eb995e47247a50f8422aa7426"><div class="ttname"><a href="classISSCalibration.html#ac2ee880eb995e47247a50f8422aa7426">ISSCalibration::SetFile</a></div><div class="ttdeci">void SetFile(std::string filename)</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00089">Calibration.hh:89</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_aca62f5c6f4cb45923723fd841cc0f837"><div class="ttname"><a href="classISSCalibration.html#aca62f5c6f4cb45923723fd841cc0f837">ISSCalibration::fAsicOffset</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt; fAsicOffset</div><div class="ttdoc">Constant in ASIC energy calculation.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00310">Calibration.hh:310</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_add460876fbf212fdd11de1037ff06782"><div class="ttname"><a href="classISSCalibration.html#add460876fbf212fdd11de1037ff06782">ISSCalibration::CaenType</a></div><div class="ttdeci">std::string CaenType(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00618">Calibration.cc:618</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_add460876fbf212fdd11de1037ff06782"><div class="ttname"><a href="classISSCalibration.html#add460876fbf212fdd11de1037ff06782">ISSCalibration::CaenType</a></div><div class="ttdeci">std::string CaenType(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00626">Calibration.cc:626</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_ae544429937bb5f5fc736d490488245f8"><div class="ttname"><a href="classISSCalibration.html#ae544429937bb5f5fc736d490488245f8">ISSCalibration::fAsicThreshold</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::vector&lt; unsigned int &gt; &gt; &gt; fAsicThreshold</div><div class="ttdoc">Threshold for raw signals on the ASICs.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00313">Calibration.hh:313</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_ae8bec3d13d576b9566f9323dccbae642"><div class="ttname"><a href="classISSCalibration.html#ae8bec3d13d576b9566f9323dccbae642">ISSCalibration::MesytecTime</a></div><div class="ttdeci">long double MesytecTime(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00691">Calibration.cc:691</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_ae8bec3d13d576b9566f9323dccbae642"><div class="ttname"><a href="classISSCalibration.html#ae8bec3d13d576b9566f9323dccbae642">ISSCalibration::MesytecTime</a></div><div class="ttdeci">long double MesytecTime(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00699">Calibration.cc:699</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_ae9266c404546904e343fe5a7bedbef94"><div class="ttname"><a href="classISSCalibration.html#ae9266c404546904e343fe5a7bedbef94">ISSCalibration::fMesyGainQuadr</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; float &gt; &gt; fMesyGainQuadr</div><div class="ttdoc">Quadratic term in Mesytec energy calibration.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00329">Calibration.hh:329</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_ae9c2c8bd9d65741e781b426248fc413b"><div class="ttname"><a href="classISSCalibration.html#ae9c2c8bd9d65741e781b426248fc413b">ISSCalibration::fAsicGainDefault</a></div><div class="ttdeci">float fAsicGainDefault</div><div class="ttdoc">! The default linear term in ASIC energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00335">Calibration.hh:335</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_aebbee7612bee31c10e120e431e41dc77"><div class="ttname"><a href="classISSCalibration.html#aebbee7612bee31c10e120e431e41dc77">ISSCalibration::fMesyGainDefault</a></div><div class="ttdeci">float fMesyGainDefault</div><div class="ttdoc">! The default linear term in Mesytec energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00341">Calibration.hh:341</a></div></div>
@@ -917,7 +925,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassISSCalibration_html_af413b19f58c954575a91725012ceaed9"><div class="ttname"><a href="classISSCalibration.html#af413b19f58c954575a91725012ceaed9">ISSCalibration::ReadCalibration</a></div><div class="ttdeci">void ReadCalibration()</div><div class="ttdef"><b>Definition</b> <a href="#l00129">Calibration.cc:129</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_af50f7797cac35d8dc122f8d0f5a53a92"><div class="ttname"><a href="classISSCalibration.html#af50f7797cac35d8dc122f8d0f5a53a92">ISSCalibration::fCaenGainQuadrDefault</a></div><div class="ttdeci">float fCaenGainQuadrDefault</div><div class="ttdoc">! The default quadratic term in CAEN energy calculations</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00339">Calibration.hh:339</a></div></div>
 <div class="ttc" id="aclassISSCalibration_html_afa9a463149e10541c7f0b912adbb9cc7"><div class="ttname"><a href="classISSCalibration.html#afa9a463149e10541c7f0b912adbb9cc7">ISSCalibration::fCaenType</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::string &gt; &gt; fCaenType</div><div class="ttdoc">The type assigned to the CAEN signal.</div><div class="ttdef"><b>Definition</b> <a href="Calibration_8hh_source.html#l00325">Calibration.hh:325</a></div></div>
-<div class="ttc" id="aclassISSCalibration_html_afc809a4991435ef14f0aaf4e1ba531f6"><div class="ttname"><a href="classISSCalibration.html#afc809a4991435ef14f0aaf4e1ba531f6">ISSCalibration::MesytecThreshold</a></div><div class="ttdeci">unsigned int MesytecThreshold(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00674">Calibration.cc:674</a></div></div>
+<div class="ttc" id="aclassISSCalibration_html_afc809a4991435ef14f0aaf4e1ba531f6"><div class="ttname"><a href="classISSCalibration.html#afc809a4991435ef14f0aaf4e1ba531f6">ISSCalibration::MesytecThreshold</a></div><div class="ttdeci">unsigned int MesytecThreshold(unsigned int mod, unsigned int chan)</div><div class="ttdef"><b>Definition</b> <a href="#l00682">Calibration.cc:682</a></div></div>
 <div class="ttc" id="aiss__sort_8cc_html_a9cbb4e440fed9c15c5b13cfcc175dd08"><div class="ttname"><a href="iss__sort_8cc.html#a9cbb4e440fed9c15c5b13cfcc175dd08">mycal</a></div><div class="ttdeci">std::shared_ptr&lt; ISSCalibration &gt; mycal</div><div class="ttdef"><b>Definition</b> <a href="iss__sort_8cc_source.html#l00113">iss_sort.cc:113</a></div></div>
 <div class="ttc" id="aiss__sort_8cc_html_aef2e709b38e28fdbbfe36870c344b223"><div class="ttname"><a href="iss__sort_8cc.html#aef2e709b38e28fdbbfe36870c344b223">myset</a></div><div class="ttdeci">std::shared_ptr&lt; ISSSettings &gt; myset</div><div class="ttdef"><b>Definition</b> <a href="iss__sort_8cc_source.html#l00108">iss_sort.cc:108</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
