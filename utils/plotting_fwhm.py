@@ -2,7 +2,7 @@ import re
 import matplotlib.pyplot as plt
 from collections import defaultdict
 
-input_file = "autocal_sigmas.dat"
+input_file = "../autocal_sigmas.dat"
 rows_colors = ['b', 'g', 'r', 'c', 'm', 'y']
 
 pattern = re.compile(r"asic_(\d+)_(\d+)_(\d+)\.FWHM:\s*([\d.]+)")
@@ -26,13 +26,14 @@ for asic_id in sorted(data.keys()):
         sorted_channels = sorted(channels_dict.keys())
         fwhm_values = [channels_dict[ch] for ch in sorted_channels]
         color = rows_colors[row_idx % len(rows_colors)]
-        plt.plot(sorted_channels, fwhm_values, marker='o', linestyle='', color=color, label="Row {}".format(row))
+        plt.plot(sorted_channels, fwhm_values, marker='o', linestyle='', color=color, label="ASIC {}".format(row))
 
-    plt.title("ASIC {} - FWHM per Channel for Different Rows".format(asic_id))
+    plt.title("Module {} - FWHM per Channel for Different ASICs".format(asic_id))
     plt.xlabel("Channel")
-    plt.ylabel("FWHM")
+    plt.ylabel("FWHM (keV)")
     plt.grid(True, alpha=0.5)
     plt.legend()
     plt.tight_layout()
     plt.savefig("asic_{}_fwhm.png".format(asic_id))
+    plt.savefig("asic_{}_fwhm.pdf".format(asic_id))
     plt.show()

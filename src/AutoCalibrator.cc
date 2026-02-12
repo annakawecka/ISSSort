@@ -589,7 +589,7 @@ void ISSAutoCalibrator::FindPeaks( TH1F *h, std::vector<float> &centroids, const
 	if ( _debug_ ){
 
 		// Draw histogram on a canvas
-		std::unique_ptr<TCanvas> c1 = std::make_unique<TCanvas>( "c_debug_all_peaks", "CANVAS", 1200, 900 );
+		std::unique_ptr<TCanvas> c1 = std::make_unique<TCanvas>( "c_debug_all_peaks", "CANVAS", 2400, 1800 );
 
 		// Format histogram
 		h->SetTitle( Form( "Possible peaks in %s; ADC value; Counts", h->GetName() ) );
@@ -740,7 +740,7 @@ void ISSAutoCalibrator::FindPeaks( TH1F *h, std::vector<float> &centroids, const
 	if ( _debug_ ){
 
 		// Draw histogram on a canvas
-		std::unique_ptr<TCanvas> c2 = std::make_unique<TCanvas>( "c_debug_final_peaks", "CANVAS", 1200, 900 );
+		std::unique_ptr<TCanvas> c2 = std::make_unique<TCanvas>( "c_debug_final_peaks", "CANVAS", 2400, 1800 );
 
 		// Format histogram
 		h->SetTitle( Form( "Found peaks in %s; ADC value; Counts", h->GetName() ) );
@@ -1096,7 +1096,7 @@ bool ISSAutoCalibrator::FitSpectrum( TH1F *h, std::vector<float> &centroids, std
 	}
 
 	// Draw the fitted peaks on the spectrum, alongside the individual fits
-	std::unique_ptr<TCanvas> c = std::make_unique<TCanvas>( "c_fitted_peaks", Form( "Fitted alpha peaks: module %d asic %d channel %d", mod, asic, chan ), 1600, 900 );
+	std::unique_ptr<TCanvas> c = std::make_unique<TCanvas>( "c_fitted_peaks", Form( "Fitted alpha peaks: module %d asic %d channel %d", mod, asic, chan ), 3200, 1800 );
 	c->cd();
 
 	gStyle->SetOptFit(1111);
@@ -1109,6 +1109,18 @@ bool ISSAutoCalibrator::FitSpectrum( TH1F *h, std::vector<float> &centroids, std
 	h->Draw();
 	total->Draw("SAME");
 	for( int i = 0; i < NumberOfFoundAlphaPeaks; i++ ) indie_peaks[i]->Draw("SAME");
+
+	gPad->Update();
+
+	TPaveStats *st = (TPaveStats*)h->FindObject("stats");
+	if (st) {
+	  st->SetX1NDC(0.10);
+	  st->SetX2NDC(0.40);
+	  st->SetY1NDC(0.35);
+	  st->SetY2NDC(0.88);
+	  gPad->Modified();
+	  gPad->Update();
+	}
 
 	// Save the canvas
 	std::string imgname = "autocal/spec/" + std::string(h->GetName()) + "_spec." + image_file_type;
@@ -1231,7 +1243,7 @@ void ISSAutoCalibrator::CalibrateChannel( std::vector<float> &centroids, std::ve
 	r->SetTitle( "Residuals Plot; ADC Value; Alpha Particle Energy Residuals [keV]" );
 
 	// Draw the results
-	std::unique_ptr<TCanvas> c = std::make_unique<TCanvas>("c","Calibration fits",800,900);
+	std::unique_ptr<TCanvas> c = std::make_unique<TCanvas>("c","Calibration fits",1600,1800);
 	c->Divide(1,2);
 	c->cd(1);
 	gStyle->SetOptFit(1111);
