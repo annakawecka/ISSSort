@@ -1006,6 +1006,34 @@ void ISSHistogrammer::MakeHists() {
 		htitle = "Excitation energy gated by 1 fission fragment;Excitation energy [keV];Counts per 20 keV";
 		Ex_fission_1FF = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
 
+		hname = "Ex_fission_1FF_ebis_on_arr";
+		htitle = "Excitation energy gated by 1 fission fragment, array coinc EBIS;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_ebis_on_arr = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_ebis_on_cd";
+		htitle = "Excitation energy gated by 1 fission fragment, cd coinc EBIS;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_ebis_on_cd = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_ebis_on_arr_cd";
+		htitle = "Excitation energy gated by 1 fission fragment, cd and array coinc EBIS;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_ebis_on_arr_cd = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_ebis_on_arr_cd_pT";
+		htitle = "Excitation energy gated by 1 fission fragment, cd and array coinc EBIS AND prompt time gate;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_ebis_on_arr_cd_pT = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_ebis_off";
+		htitle = "Excitation energy gated by 1 fission fragment, EBIS of;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_ebis_off = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_arr_cd_pT";
+		htitle = "Excitation energy gated by 1 fission fragment, cd and array prompt time;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_arr_cd_pT = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_ebis_off_arr_cd_pT";
+		htitle = "Excitation energy gated by 1 fission fragment, EBIS of, array and cd prompt time;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_ebis_off_arr_cd_pT = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
 		hname = "Ex_fission_1FF_gamma";
 		htitle = "Excitation energy gated by 1 fission fragment and (any) gamma;Excitation energy [keV];Counts per 20 keV";
 		Ex_fission_1FF_gamma = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
@@ -2944,6 +2972,13 @@ void ISSHistogrammer::ResetHists() {
 		Ex_fissionT->Reset("ICESM");
 		Ex_fission_gamma->Reset("ICESM");
 		Ex_fission_1FF->Reset("ICESM");
+		Ex_fission_1FF_ebis_on_arr->Reset("ICESM");
+		Ex_fission_1FF_ebis_on_cd->Reset("ICESM");
+		Ex_fission_1FF_ebis_on_arr_cd->Reset("ICESM");
+		Ex_fission_1FF_ebis_on_arr_cd_pT->Reset("ICESM");
+		Ex_fission_1FF_ebis_off->Reset("ICESM");
+		Ex_fission_1FF_arr_cd_pT->Reset("ICESM");
+		Ex_fission_1FF_ebis_off_arr_cd_pT->Reset("ICESM");
 		Ex_fission_1FF_gamma->Reset("ICESM");
 		Ex_fission_2FF->Reset("ICESM");
 		Ex_fission_random->Reset("ICESM");
@@ -3661,7 +3696,7 @@ unsigned long ISSHistogrammer::FillHists() {
 					// Get CD event
 					cd_evt1 = read_evts->GetCDEvt(k);
 
-					if (  PromptCoincidence( cd_evt1, array_evt ) && cd_evt1->GetEnergyTotal() > 5e5 )
+					if ( cd_evt1->GetEnergyTotal() > 5e4 )
 					  has1FF = true;
 
 					// Time differences
@@ -3697,7 +3732,7 @@ unsigned long ISSHistogrammer::FillHists() {
 						if( PromptCoincidence( cd_evt1, array_evt ) && PromptCoincidence( cd_evt1, cd_evt2 ) &&
 						   TMath::Abs( cd_evt1->GetSector() - cd_evt2->GetSector() ) >= 0.5*set->GetNumberOfCDSectors()-2 &&
 						   TMath::Abs( cd_evt1->GetSector() - cd_evt2->GetSector() ) <= 0.5*set->GetNumberOfCDSectors()+2 ){
-						  if ( cd_evt2->GetEnergyTotal() > 5e5 && cd_evt1->GetEnergyTotal() > 5e5 ){
+						  if ( cd_evt2->GetEnergyTotal() > 5e4 && cd_evt1->GetEnergyTotal() > 5e4 ){
 							has2FF = true;
 						  }
 
@@ -3774,13 +3809,40 @@ unsigned long ISSHistogrammer::FillHists() {
 				} // cd events 1
 
 				// Fill Ex histogram gated on just 1 FF if its energy is larger than 0
-				if ( has1FF ){
+				if ( has1FF) { // only energy gate od cd_evt
 				  Ex_fission_1FF->Fill( react->GetEx() );
 
-				  if ( has1FFgamma )
-					Ex_fission_1FF_gamma->Fill( react->GetEx() );
+				  if ( PromptCoincidence( cd_evt1, array_evt ) ){
+					Ex_fission_1FF_arr_cd_pT->Fill( react->GetEx() );
+				  }
+
+				  if (  OnBeam( array_evt ) ) { // energy of cd_evt, array event within ebis gate
+					Ex_fission_1FF_ebis_on_arr->Fill( react->GetEx() );
+				  }
+				  if (  OnBeam( cd_evt1 ) ) { // energy of cd_evt, array event within ebis gate
+					Ex_fission_1FF_ebis_on_cd->Fill( react->GetEx() );
+				  }
+				  if (  OnBeam( cd_evt1 ) &&  OnBeam( array_evt ) ) {
+					Ex_fission_1FF_ebis_on_arr_cd->Fill( react->GetEx() );
+
+					if ( has1FFgamma )
+					  Ex_fission_1FF_gamma->Fill( react->GetEx() );
+
+					if ( PromptCoincidence( cd_evt1, array_evt ) ) // energy of cd_evt, array event within ebis gate, prompt time coincidence between array and cd
+					  Ex_fission_1FF_ebis_on_arr_cd_pT->Fill( react->GetEx() );
+				  }
+				  if ( !OnBeam( cd_evt1 ) &&  !OnBeam( array_evt ) ) { // energy of cd_evt, array event outside ebis gate
+					Ex_fission_1FF_ebis_off->Fill( react->GetEx() );
+
+					if ( PromptCoincidence( cd_evt1, array_evt ) ){
+					  Ex_fission_1FF_ebis_off_arr_cd_pT->Fill( react->GetEx() );
+					}
+				  }
+
+
 				}
-				if (has2FF)
+
+				if (has2FF && OnBeam( array_evt ) && OnBeam( cd_evt1 ) && OnBeam( cd_evt2 ) )
 				  Ex_fission_2FF->Fill( react->GetEx() );
 
 				// Fill prompt hists

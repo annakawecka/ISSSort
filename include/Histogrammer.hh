@@ -651,9 +651,10 @@ private:
 	std::vector<TH2F*> Ex_vs_T1_cut;
 	TH1F *Ex, *Ex_ebis, *Ex_ebis_on, *Ex_ebis_off;
 	TH1F *Ex_recoil, *Ex_recoilT, *Ex_T1;
-	TH1F *Ex_recoil_random, *Ex_recoilT_random;
-	TH1F *Ex_fission, *Ex_fissionT, *Ex_fission_gamma;
-	TH1F *Ex_fission_1FF, *Ex_fission_1FF_gamma, *Ex_fission_2FF;
+  TH1F *Ex_recoil_random, *Ex_recoilT_random;
+  TH1F *Ex_fission, *Ex_fissionT, *Ex_fission_gamma;
+  TH1F *Ex_fission_1FF, *Ex_fission_1FF_ebis_on_arr, *Ex_fission_1FF_ebis_on_cd, *Ex_fission_1FF_ebis_on_arr_cd, *Ex_fission_1FF_ebis_on_arr_cd_pT, *Ex_fission_1FF_ebis_off, *Ex_fission_1FF_ebis_off_arr_cd_pT, *Ex_fission_1FF_arr_cd_pT, *Ex_fission_1FF_gamma;
+  TH1F *Ex_fission_2FF, *Ex_fission_2FF_ebis_on, *Ex_fission_2FF_ebis_off, *Ex_fission_2FF_ebis_off_apT,  *Ex_fission_2FF_ebis_off_cpT,  *Ex_fission_2FF_ebis_off_atpT, *Ex_fission_2FF_gamma;
 	TH1F *Ex_fission_random, *Ex_fissionT_random, *Ex_fission_gamma_random;
 	TH1F *Ex_gamma, *Ex_gammaT;
 	TH1F *Ex_gamma_random, *Ex_gammaT_random;
