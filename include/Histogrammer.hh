@@ -227,7 +227,7 @@ public:
 		else return false;
 	};
 	inline bool	OnBeam( std::shared_ptr<ISSArrayEvt> a ){
-		if( a->GetTime() - read_evts->GetEBIS() >= 0 &&
+		if( a->GetTime() - read_evts->GetEBIS() >= 150 &&
 			a->GetTime() - read_evts->GetEBIS() < react->GetEBISOnTime() ) return true;
 		else return false;
 	};
@@ -242,7 +242,7 @@ public:
 		else return false;
 	};
 	inline bool	OnBeam( std::shared_ptr<ISSCDEvt> f ){
-		if( f->GetTime() - read_evts->GetEBIS() >= 0 &&
+		if( f->GetTime() - read_evts->GetEBIS() >= 150 &&
 		    f->GetTime() - read_evts->GetEBIS() < react->GetEBISOnTime() ) return true;
 		else return false;
 	};

@@ -3696,7 +3696,7 @@ unsigned long ISSHistogrammer::FillHists() {
 					// Get CD event
 					cd_evt1 = read_evts->GetCDEvt(k);
 
-					if ( cd_evt1->GetEnergyTotal() > 5e4 )
+					if ( cd_evt1->GetEnergyTotal() > 200e3 )
 					  has1FF = true;
 
 					// Time differences
@@ -3732,7 +3732,7 @@ unsigned long ISSHistogrammer::FillHists() {
 						if( PromptCoincidence( cd_evt1, array_evt ) && PromptCoincidence( cd_evt1, cd_evt2 ) &&
 						   TMath::Abs( cd_evt1->GetSector() - cd_evt2->GetSector() ) >= 0.5*set->GetNumberOfCDSectors()-2 &&
 						   TMath::Abs( cd_evt1->GetSector() - cd_evt2->GetSector() ) <= 0.5*set->GetNumberOfCDSectors()+2 ){
-						  if ( cd_evt2->GetEnergyTotal() > 5e4 && cd_evt1->GetEnergyTotal() > 5e4 ){
+						  if ( cd_evt2->GetEnergyTotal() > 200e3 && cd_evt1->GetEnergyTotal() > 200e3 ){
 							has2FF = true;
 						  }
 
