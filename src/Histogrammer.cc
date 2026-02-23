@@ -1006,6 +1006,14 @@ void ISSHistogrammer::MakeHists() {
 		htitle = "Excitation energy gated by 1 fission fragment;Excitation energy [keV];Counts per 20 keV";
 		Ex_fission_1FF = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
 
+		hname = "Ex_fission_1FF_no_lume";
+		htitle = "Excitation energy gated by 1 fission fragment, nothing in LUME;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_no_lume = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
+		hname = "Ex_fission_1FF_with_lume";
+		htitle = "Excitation energy gated by 1 fission fragment, gated on LUME hit;Excitation energy [keV];Counts per 20 keV";
+		Ex_fission_1FF_with_lume = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
+
 		hname = "Ex_fission_1FF_ebis_on_arr";
 		htitle = "Excitation energy gated by 1 fission fragment, array coinc EBIS;Excitation energy [keV];Counts per 20 keV";
 		Ex_fission_1FF_ebis_on_arr = new TH1F( hname.data(), htitle.data(), react->HistExBins(), react->HistExMin(), react->HistExMax() );
@@ -1753,6 +1761,8 @@ void ISSHistogrammer::MakeHists() {
 	// Generic recoils
 	output_file->cd( "Timing" );
 	recoil_lume_td.resize( set->GetNumberOfLUMEDetectors() );
+	recoil_lume_td_cut.resize( set->GetNumberOfLUMEDetectors() );
+	recoil_lume_td_below_cut.resize( set->GetNumberOfLUMEDetectors() );
 
 	// For LUME sectors
 	for( unsigned int j = 0; j < set->GetNumberOfLUMEDetectors(); ++j ) {
@@ -1764,6 +1774,19 @@ void ISSHistogrammer::MakeHists() {
 		recoil_lume_td[j] = new TH1F( hname.data(), htitle.data(),
 									 1000, -1.0*set->GetEventWindow()-50, 1.0*set->GetEventWindow()+50 );
 
+		hname = "td_recoil_lume_cut_det" + std::to_string(j);
+		htitle = "Time difference between recoils in recoil/CD detector ";
+		htitle += " and LUME detector " + std::to_string(j) + " cut on C line in LUME";
+		htitle += ";#Deltat;Counts";
+		recoil_lume_td_cut[j] = new TH1F( hname.data(), htitle.data(),
+									 1000, -1.0*set->GetEventWindow()-50, 1.0*set->GetEventWindow()+50 );
+
+		hname = "td_recoil_lume_below_cut_det" + std::to_string(j);
+		htitle = "Time difference between recoils in recoil/CD detector ";
+		htitle += " and LUME detector " + std::to_string(j) + " cut below C line in LUME";
+		htitle += ";#Deltat;Counts";
+		recoil_lume_td_below_cut[j] = new TH1F( hname.data(), htitle.data(),
+									 1000, -1.0*set->GetEventWindow()-50, 1.0*set->GetEventWindow()+50 );
 	}
 
 
@@ -1887,6 +1910,7 @@ void ISSHistogrammer::MakeHists() {
 		// Timing plots
 		output_file->cd( "Timing" );
 		fission_array_td.resize( set->GetNumberOfArrayModules() );
+		lume_array_td.resize( set->GetNumberOfArrayModules() * set->GetNumberOfLUMEDetectors() );
 
 		// Fission-fission time difference
 		hname = "fission_fission_td";
@@ -1913,6 +1937,14 @@ void ISSHistogrammer::MakeHists() {
 			fission_array_td[j] = new TH1F( hname.data(), htitle.data(),
 										   1000, -1.0*set->GetEventWindow()-50, 1.0*set->GetEventWindow()+50 );
 
+			for( unsigned int jj = 0; jj < set->GetNumberOfLUMEDetectors(); ++jj ) {
+			  hname = "td_lume_" +  std::to_string(jj) + "_array_mod" + std::to_string(j);
+			  htitle = "Time difference between lume detector " + std::to_string(jj);
+			  htitle += " and array module " + std::to_string(j);
+			  htitle += ";#Deltat;Counts";
+			  lume_array_td[jj] = new TH1F( hname.data(), htitle.data(),
+											  1000, -1.0*set->GetEventWindow()-50, 1.0*set->GetEventWindow()+50 );
+			}
 		}
 
 
@@ -2092,6 +2124,8 @@ void ISSHistogrammer::MakeHists() {
 	lume_recoil_random_det.resize( set->GetNumberOfLUMEDetectors() );
 	lume_recoilT_random_det.resize( set->GetNumberOfLUMEDetectors() );
 	lume_E_vs_x_det.resize( set->GetNumberOfLUMEDetectors() );
+	lume_E_vs_x_det_1FF.resize( set->GetNumberOfLUMEDetectors() );
+	lume_E_vs_x_det_1FF_low_e.resize( set->GetNumberOfLUMEDetectors() );
 	lume_E_vs_x_ebis_det.resize( set->GetNumberOfLUMEDetectors() );
 	lume_E_vs_x_ebis_on_det.resize( set->GetNumberOfLUMEDetectors() );
 	lume_E_vs_x_ebis_off_det.resize( set->GetNumberOfLUMEDetectors() );
@@ -2159,6 +2193,16 @@ void ISSHistogrammer::MakeHists() {
 		htitle = "LUME energy vs position spectrum for detector " + std::to_string(i);
 		htitle += ";Position;Energy [keV]";
 		lume_E_vs_x_det[i] = new TH2F( hname.data(), htitle.data(), 400, -2., 2., react->HistLumeBins(), react->HistLumeMin(), react->HistLumeMax() );
+
+		hname = "lume_E_vs_x_det_" + std::to_string(i) + "_1FF";
+		htitle = "LUME energy vs position spectrum for detector " + std::to_string(i) + " gated on 1FF";
+		htitle += ";Position;Energy [keV]";
+		lume_E_vs_x_det_1FF[i] = new TH2F( hname.data(), htitle.data(), 400, -2., 2., react->HistLumeBins(), react->HistLumeMin(), react->HistLumeMax() );
+
+		hname = "lume_E_vs_x_det_" + std::to_string(i) + "_1FF_low_e";
+		htitle = "LUME energy vs position spectrum for detector " + std::to_string(i) + " gated on 1FF, with E > 10 keV";
+		htitle += ";Position;Energy [keV]";
+		lume_E_vs_x_det_1FF_low_e[i] = new TH2F( hname.data(), htitle.data(), 400, -2., 2., react->HistLumeBins(), react->HistLumeMin(), react->HistLumeMax() );
 
 		hname = "lume_E_vs_x_ebis_det_" + std::to_string(i);
 		htitle = "LUME energy vs position spectrum for detector " + std::to_string(i);
@@ -2465,8 +2509,11 @@ void ISSHistogrammer::ResetHists() {
 
 	}
 
-	for( unsigned int i = 0; i < recoil_lume_td.size(); ++i )
+	for( unsigned int i = 0; i < recoil_lume_td.size(); ++i ){
 		recoil_lume_td[i]->Reset("ICESM");
+		recoil_lume_td_cut[i]->Reset("ICESM");
+		recoil_lume_td_below_cut[i]->Reset("ICESM");
+	}
 
 	// Fission
 	if( react->IsFission() && set->GetNumberOfCDLayers() > 0 ) {
@@ -2481,6 +2528,9 @@ void ISSHistogrammer::ResetHists() {
 
 		for( unsigned int i = 0; i < fission_array_td.size(); ++i )
 			fission_array_td[i]->Reset("ICESM");
+
+		for( unsigned int i = 0; i < lume_array_td.size(); ++i )
+			lume_array_td[i]->Reset("ICESM");
 
 		for( unsigned int i = 0; i < fission_array_tw_hit0_row.size(); ++i )
 			for( unsigned int j = 0; j < fission_array_tw_hit0_row[i].size(); ++j )
@@ -2972,6 +3022,8 @@ void ISSHistogrammer::ResetHists() {
 		Ex_fissionT->Reset("ICESM");
 		Ex_fission_gamma->Reset("ICESM");
 		Ex_fission_1FF->Reset("ICESM");
+		Ex_fission_1FF_no_lume->Reset("ICESM");
+		Ex_fission_1FF_with_lume->Reset("ICESM");
 		Ex_fission_1FF_ebis_on_arr->Reset("ICESM");
 		Ex_fission_1FF_ebis_on_cd->Reset("ICESM");
 		Ex_fission_1FF_ebis_on_arr_cd->Reset("ICESM");
@@ -3216,6 +3268,8 @@ void ISSHistogrammer::ResetHists() {
 		lume_recoil_random_det[i]->Reset("ICESM");
 		lume_recoilT_random_det[i]->Reset("ICESM");
 		lume_E_vs_x_det[i]->Reset("ICESM");
+		lume_E_vs_x_det_1FF[i]->Reset("ICESM");
+		lume_E_vs_x_det_1FF_low_e[i]->Reset("ICESM");
 		lume_E_vs_x_ebis_det[i]->Reset("ICESM");
 		lume_E_vs_x_ebis_on_det[i]->Reset("ICESM");
 		lume_E_vs_x_ebis_off_det[i]->Reset("ICESM");
@@ -3683,6 +3737,7 @@ unsigned long ISSHistogrammer::FillHists() {
 			std::vector<unsigned int> promptgammaidx;
 			std::vector<unsigned int> randomgammaidx;
 			std::vector<unsigned int> promptgammaidx1FF;
+			bool has1FF_low_e = false;
 			bool has1FF = false;
 			bool has2FF = false;
 			bool has1FFgamma = false;
@@ -3698,6 +3753,9 @@ unsigned long ISSHistogrammer::FillHists() {
 
 					if ( cd_evt1->GetEnergyTotal() > 200e3 )
 					  has1FF = true;
+
+					if ( cd_evt1->GetEnergyTotal() > 10 )
+					  has1FF_low_e = true;
 
 					// Time differences
 					tdiff = cd_evt1->GetTime() - array_evt->GetTime();
@@ -3839,7 +3897,45 @@ unsigned long ISSHistogrammer::FillHists() {
 					}
 				  }
 
+				  if ( read_evts->GetLumeMultiplicity() == 0 )
+					Ex_fission_1FF_no_lume->Fill( react->GetEx() );
+				  else
+					Ex_fission_1FF_with_lume->Fill( react->GetEx() );
 
+				  for( unsigned int j = 0; j < read_evts->GetLumeMultiplicity(); ++j ){
+
+					// Get LUME event
+					lume_evt = read_evts->GetLumeEvt(j);
+
+					int det_id = lume_evt->GetID();
+					if( det_id >= set->GetNumberOfLUMEDetectors() ){
+					  std::cerr << "Bad LUME detector ID " << det_id << ". Only " << set->GetNumberOfLUMEDetectors();
+					  std::cerr << " detectors are set. Ignoring this event for histogramming." << std::endl;
+					  continue;
+					}
+
+					// E versus x
+					lume_E_vs_x_det_1FF[det_id]->Fill( lume_evt->GetX(),lume_evt->GetBE(),1 );
+				  }
+
+				}
+
+				if ( has1FF_low_e ) {
+				  for( unsigned int j = 0; j < read_evts->GetLumeMultiplicity(); ++j ){
+
+					// Get LUME event
+					lume_evt = read_evts->GetLumeEvt(j);
+
+					int det_id = lume_evt->GetID();
+					if( det_id >= set->GetNumberOfLUMEDetectors() ){
+					  std::cerr << "Bad LUME detector ID " << det_id << ". Only " << set->GetNumberOfLUMEDetectors();
+					  std::cerr << " detectors are set. Ignoring this event for histogramming." << std::endl;
+					  continue;
+					}
+
+					// E versus x
+					lume_E_vs_x_det_1FF_low_e[det_id]->Fill( lume_evt->GetX(),lume_evt->GetBE(),1 );
+				  }
 				}
 
 				if (has2FF && OnBeam( array_evt ) && OnBeam( cd_evt1 ) && OnBeam( cd_evt2 ) )
@@ -4047,6 +4143,26 @@ unsigned long ISSHistogrammer::FillHists() {
 				}
 
 			} // fission mode finished
+
+			// LUME mode
+
+			for( unsigned int mm = 0; mm < read_evts->GetLumeMultiplicity(); ++mm ){
+
+			  // Get LUME event
+			  lume_evt = read_evts->GetLumeEvt(mm);
+
+			  int det_id = lume_evt->GetID();
+			  if( det_id >= set->GetNumberOfLUMEDetectors() ){
+				std::cerr << "Bad LUME detector ID " << det_id << ". Only " << set->GetNumberOfLUMEDetectors();
+				std::cerr << " detectors are set. Ignoring this event for histogramming." << std::endl;
+				continue;
+			  }
+
+			  int l_a_indx = array_evt->GetModule() * set->GetNumberOfLUMEDetectors() + det_id;
+			  lume_array_td[l_a_indx]->Fill(lume_evt->GetTime() - array_evt->GetTime() );
+			}
+
+			// LUME mode finished
 
 			// -----------
 			// Recoil mode
@@ -4770,6 +4886,11 @@ unsigned long ISSHistogrammer::FillHists() {
 				// Time differences
 				tdiff = generic_evt->GetTime() - lume_evt->GetTime();
 				recoil_lume_td[det_id]->Fill( tdiff );
+
+				if (lume_evt->GetBE() > 10000)
+				  recoil_lume_td_cut[det_id]->Fill( tdiff );
+				else
+				  recoil_lume_td_below_cut[det_id]->Fill( tdiff );
 
 				// Check for prompt events with coincident recoils
 				if( promptcheckT )

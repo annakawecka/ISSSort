@@ -439,7 +439,10 @@ private:
 	std::vector<std::vector<TH1F*>> recoil_array_td;
 	std::vector<std::vector<TH1F*>> recoil_elum_td;
 	std::vector<TH1F*> fission_array_td;
-	std::vector<TH1F*> recoil_lume_td;
+  std::vector<TH1F*> lume_array_td;
+  std::vector<TH1F*> recoil_lume_td;
+  std::vector<TH1F*> recoil_lume_td_cut;
+  std::vector<TH1F*> recoil_lume_td_below_cut;
 	TH1F *fission_fission_td;
 	TH2F *fission_fission_td_sec;
 	TH2F *recoil_array_tw_hit0, *recoil_array_tw_hit1;
@@ -653,7 +656,7 @@ private:
 	TH1F *Ex_recoil, *Ex_recoilT, *Ex_T1;
   TH1F *Ex_recoil_random, *Ex_recoilT_random;
   TH1F *Ex_fission, *Ex_fissionT, *Ex_fission_gamma;
-  TH1F *Ex_fission_1FF, *Ex_fission_1FF_ebis_on_arr, *Ex_fission_1FF_ebis_on_cd, *Ex_fission_1FF_ebis_on_arr_cd, *Ex_fission_1FF_ebis_on_arr_cd_pT, *Ex_fission_1FF_ebis_off, *Ex_fission_1FF_ebis_off_arr_cd_pT, *Ex_fission_1FF_arr_cd_pT, *Ex_fission_1FF_gamma;
+  TH1F *Ex_fission_1FF, *Ex_fission_1FF_no_lume, *Ex_fission_1FF_with_lume, *Ex_fission_1FF_ebis_on_arr, *Ex_fission_1FF_ebis_on_cd, *Ex_fission_1FF_ebis_on_arr_cd, *Ex_fission_1FF_ebis_on_arr_cd_pT, *Ex_fission_1FF_ebis_off, *Ex_fission_1FF_ebis_off_arr_cd_pT, *Ex_fission_1FF_arr_cd_pT, *Ex_fission_1FF_gamma;
   TH1F *Ex_fission_2FF, *Ex_fission_2FF_ebis_on, *Ex_fission_2FF_ebis_off, *Ex_fission_2FF_ebis_off_apT,  *Ex_fission_2FF_ebis_off_cpT,  *Ex_fission_2FF_ebis_off_atpT, *Ex_fission_2FF_gamma;
 	TH1F *Ex_fission_random, *Ex_fissionT_random, *Ex_fission_gamma_random;
 	TH1F *Ex_gamma, *Ex_gammaT;
@@ -718,7 +721,9 @@ private:
 	std::vector<TH1F*> lume_recoil_random_det;
 	std::vector<TH1F*> lume_recoilT_random_det;
 	std::vector<TH2F*> lume_E_vs_x_det;
-	std::vector<TH2F*> lume_E_vs_x_ebis_det;
+  std::vector<TH2F*> lume_E_vs_x_det_1FF;
+  std::vector<TH2F*> lume_E_vs_x_det_1FF_low_e;
+  std::vector<TH2F*> lume_E_vs_x_ebis_det;
 	std::vector<TH2F*> lume_E_vs_x_ebis_on_det;
 	std::vector<TH2F*> lume_E_vs_x_ebis_off_det;
 	TH1F *lume, *lume_ebis, *lume_ebis_on, *lume_ebis_off;
