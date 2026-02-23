@@ -1942,8 +1942,8 @@ void ISSHistogrammer::MakeHists() {
 			  htitle = "Time difference between lume detector " + std::to_string(jj);
 			  htitle += " and array module " + std::to_string(j);
 			  htitle += ";#Deltat;Counts";
-			  lume_array_td[jj] = new TH1F( hname.data(), htitle.data(),
-											  1000, -1.0*set->GetEventWindow()-50, 1.0*set->GetEventWindow()+50 );
+			  lume_array_td[j*set->GetNumberOfLUMEDetectors() + jj] = new TH1F( hname.data(), htitle.data(),
+											  1000, -2000, 2000 );
 			}
 		}
 
