@@ -484,6 +484,9 @@ private:
 	TH2F* fission_fission_dEdE;
 	TH2F* fission_fission_dEdE_array;
 	TH2F* fission_dE_vs_ring;
+  TH2F* fission_dE_vs_ring_highEx;
+  TH2F* fission_dE_vs_ring_lume_C;
+  TH2F* fission_dE_vs_ring_lume_below_C;
 	TH2F* fission_Etot_vs_ring;
 	TH2F* fission_xy_map;
 	TH2F* fission_xy_map_cutH;

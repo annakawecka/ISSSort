@@ -1887,6 +1887,27 @@ void ISSHistogrammer::MakeHists() {
 									  set->GetNumberOfCDRings(), -0.5, set->GetNumberOfCDRings() - 0.5,
 									  react->HistFissionBins(), react->HistFissionMin(), react->HistFissionMax() );
 
+		hname = "fission_dE_vs_ring_highEx";
+		htitle = "fission dE versus ring number, Ex > 5 MeV";
+		htitle += ";Ring number;Fragment dE [keV];Counts";
+		fission_dE_vs_ring_highEx = new TH2F( hname.data(), htitle.data(),
+											  set->GetNumberOfCDRings(), -0.5, set->GetNumberOfCDRings() - 0.5,
+											  react->HistFissionBins(), react->HistFissionMin(), react->HistFissionMax() );
+
+		hname = "fission_dE_vs_ring_lume_C";
+		htitle = "fission dE versus ring number, lume above 10000 (C line)";
+		htitle += ";Ring number;Fragment dE [keV];Counts";
+		fission_dE_vs_ring_lume_C = new TH2F( hname.data(), htitle.data(),
+											  set->GetNumberOfCDRings(), -0.5, set->GetNumberOfCDRings() - 0.5,
+											  react->HistFissionBins(), react->HistFissionMin(), react->HistFissionMax() );
+
+		hname = "fission_dE_vs_ring_lume_below_C";
+		htitle = "fission dE versus ring number, lume below 10000 (below C line)";
+		htitle += ";Ring number;Fragment dE [keV];Counts";
+		fission_dE_vs_ring_lume_below_C = new TH2F( hname.data(), htitle.data(),
+													set->GetNumberOfCDRings(), -0.5, set->GetNumberOfCDRings() - 0.5,
+													react->HistFissionBins(), react->HistFissionMin(), react->HistFissionMax() );
+		
 		hname = "fission_Etot_vs_ring";
 		htitle = "fission E total versus ring number";
 		htitle += ";Ring number;Fragment dE [keV];Counts";
@@ -2550,6 +2571,9 @@ void ISSHistogrammer::ResetHists() {
 		fission_fission_dEdE->Reset("ICESM");
 		fission_fission_dEdE_array->Reset("ICESM");
 		fission_dE_vs_ring->Reset("ICESM");
+		fission_dE_vs_ring_highEx->Reset("ICESM");
+		fission_dE_vs_ring_lume_C->Reset("ICESM");
+		fission_dE_vs_ring_lume_below_C->Reset("ICESM");
 		fission_xy_map->Reset("ICESM");
 		fission_xy_map_cutH->Reset("ICESM");
 		fission_xy_map_cutL->Reset("ICESM");
@@ -4677,6 +4701,28 @@ unsigned long ISSHistogrammer::FillHists() {
 				// Energy versus ring number
 				fission_dE_vs_ring->Fill( cd_evt1->GetRing(),
 										 cd_evt1->GetEnergyLoss( set->GetRecoilEnergyLossStart(), set->GetRecoilEnergyLossStop() ) );
+
+				if ( array_mult == 1 ){
+				  if ( psideonly ) array_evt = read_evts->GetArrayPEvt(0);
+				  else array_evt = read_evts->GetArrayEvt(0);
+
+				  react->MakeReaction( array_evt->GetPosition(), array_evt->GetEnergy() );
+
+				  if ( react->GetEx() > 5000 )
+					fission_dE_vs_ring_highEx->Fill( cd_evt1->GetRing(),
+											  cd_evt1->GetEnergyLoss( set->GetRecoilEnergyLossStart(), set->GetRecoilEnergyLossStop() ) );
+				}
+				if ( read_evts->GetLumeMultiplicity() == 1 ){
+				  lume_evt = read_evts->GetLumeEvt(0);
+				  if ( lume_evt->GetBE() > 10000 )
+					fission_dE_vs_ring_lume_C->Fill( cd_evt1->GetRing(),
+													 cd_evt1->GetEnergyLoss( set->GetRecoilEnergyLossStart(), set->GetRecoilEnergyLossStop() ) );
+				  else
+					fission_dE_vs_ring_lume_below_C->Fill( cd_evt1->GetRing(),
+													 cd_evt1->GetEnergyLoss( set->GetRecoilEnergyLossStart(), set->GetRecoilEnergyLossStop() ) );
+				}
+
+
 				fission_Etot_vs_ring->Fill( cd_evt1->GetRing(), cd_evt1->GetEnergyTotal() );
 
 				// Energy EdE plot, unconditioned
